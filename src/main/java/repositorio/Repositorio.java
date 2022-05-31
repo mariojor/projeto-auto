@@ -7,9 +7,10 @@ import org.bson.Document;
 
 public interface Repositorio {
      void inserir(Cliente cliente) throws ClienteCadastradoException;
-     void atualizar(Object obj);
-     void remover(Object obj);
+     void atualizar(Cliente cliente);
+     void remover(String id);
      Object buscarPorCpf(String cpf);
      FindIterable<Document> buscarTodos();
+     Document buscarPorId(String id);
 }
 

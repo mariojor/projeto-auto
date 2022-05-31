@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Cliente {
 
+    private String id;
     private String nome;
     private String cpf;
     private String endereco;
