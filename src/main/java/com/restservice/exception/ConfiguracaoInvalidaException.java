@@ -1,4 +1,4 @@
-package exception;
+package com.restservice.exception;
 
 public class ConfiguracaoInvalidaException extends Throwable {
     public ConfiguracaoInvalidaException(String erro_ao_configurar_o_mongoDB) {
