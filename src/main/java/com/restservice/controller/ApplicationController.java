@@ -17,7 +17,7 @@ public class ApplicationController {
 
     @PostMapping("/inserir")
     public void criarCliente(@NonNull @RequestBody Cliente cliente) {
-            clienteService.inserir(cliente);
+        clienteService.inserir(cliente);
     }
 
     @PutMapping("/atualizar")

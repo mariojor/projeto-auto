@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.lang.NonNull;
 
-@Document(collection ="clientes")
+@Document(collection = "clientes")
 @Getter
 public class Cliente {
 

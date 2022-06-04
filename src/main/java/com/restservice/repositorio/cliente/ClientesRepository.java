@@ -7,7 +7,6 @@ import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -33,7 +32,7 @@ public class ClientesRepository implements Service<Cliente> {
             mongoOperations.insert(cliente);
             System.out.println("Cliente inserido com sucesso");
         } else {
-           System.out.println("Cliente já cadastrado");
+            System.out.println("Cliente já cadastrado");
         }
     }
 
@@ -47,7 +46,7 @@ public class ClientesRepository implements Service<Cliente> {
             mongoOperations.updateFirst(query, update, Cliente.class);
 
         }
-            System.out.println("Cliente não encontrado");
+        System.out.println("Cliente não encontrado");
 
     }
 
