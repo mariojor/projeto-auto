@@ -17,7 +17,7 @@ public class Cliente {
     @NonNull
     @Indexed(unique = true)
     private String cpf;
-    private String endereco;
+    private Endereco endereco;
     private String telefone;
 
 }

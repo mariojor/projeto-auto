@@ -40,7 +40,8 @@ public class ClientesRepository implements Service<Cliente> {
     public void atualizar(Cliente cliente) {
         if (Optional.ofNullable(buscarPorId(cliente.getId())).isPresent()) {
             final var query = Query.query(Criteria.where(ID).is(cliente.getId()));
-            final var update = Update.update(NOME, cliente.getNome())
+            final var update = Update
+                    .update(NOME, cliente.getNome())
                     .set(CPF, cliente.getCpf())
                     .set(ENDERECO, cliente.getEndereco())
                     .set(TELEFONE, cliente.getTelefone());
