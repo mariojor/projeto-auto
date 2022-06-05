@@ -1,9 +1,10 @@
 package com.restservice.model;
 
 import lombok.Getter;
-import org.springframework.data.mongodb.core.mapping.Document;
+import lombok.Setter;
 
 @Getter
+@Setter
 public class Endereco {
     private String logradouro;
     private String numero;
