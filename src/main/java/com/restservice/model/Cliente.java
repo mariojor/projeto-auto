@@ -17,13 +17,6 @@ import java.util.List;
 @Setter
 public class Cliente {
 
-    private static final String ID = "_id";
-    private static final String CPF = "cpf";
-    private static final String ENDERECO = "endereco";
-    private static final String NOME = "nome";
-    private static final String TELEFONE = "cpf";
-    private static final String CIDADE = "cidade";
-
     @Id
     private String id;
     @NonNull
@@ -33,10 +26,5 @@ public class Cliente {
     private String cpf;
     private Endereco endereco;
     private String telefone;
-
-    public Bson updateEnderecoBson(){
-        final var field = List.of(set(CIDADE, getEndereco().getCidade()));
-        return combine(field);
-    }
 
 }

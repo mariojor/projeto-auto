@@ -29,7 +29,7 @@ public class ClientesRepository implements Service<Cliente> {
     private final MongoOperations mongoOperations;
 
     public void inserir(Cliente cliente) {
-        if (Optional.ofNullable(buscarPorCpf(cliente.getCpf())).isEmpty()) {
+        if (Optional.ofNullable(buscarPorCpf(cliente)).isEmpty()) {
             final var clienteInserido = mongoOperations.insert(cliente);
             System.out.println(String.format("%s, inserido com sucesso", clienteInserido));
         } else {
@@ -63,25 +63,16 @@ public class ClientesRepository implements Service<Cliente> {
 
     public void remover(Cliente cliente) {
         final var query = Query.query(Criteria.where(ID).is(cliente.getId()));
-        final var response = mongoOperations.findAndRemove(query, Cliente.class);
-        if (Optional.ofNullable(response).isEmpty()) {
-            throw new ClienteNaoExisteException();
-        }
+        mongoOperations.remove(query, Cliente.class);
     }
 
-    public Cliente buscarPorId(String id) {
-        final var find = mongoOperations.findById(id, Cliente.class);
-        final var query = Query.query(Criteria.where(ID).is(id));
+    public Cliente buscarPorId(Cliente cliente) {
+        return mongoOperations.findById(cliente.getId(), Cliente.class);
+    }
+
+    public Cliente buscarPorCpf(Cliente cliente) {
+        final var query = Query.query(Criteria.where(CPF).is(cliente.getCpf()));
         return mongoOperations.findOne(query, Cliente.class, COLLECTION);
-    }
-
-    public Cliente buscarPorCpf(String cpf) {
-        final var query = Query.query(Criteria.where(CPF).is(cpf));
-        final var response = mongoOperations.findOne(query, Cliente.class, COLLECTION);
-        if (Optional.ofNullable(response).isEmpty()) {
-            throw new ClienteNaoExisteException();
-        }
-        return response;
     }
 
     public List<Cliente> buscarTodos() {
