@@ -57,16 +57,16 @@ public class ClientesRepository implements Service<Cliente> {
             throw new ClienteNaoExisteException();
         }
     }
-
-    public void atualizarEndereco(Cliente cliente) {
-        final var query = Query.query(Criteria.where(ID).is(cliente.getId()));
-        final var update = new Update().set(ENDERECO, cliente.getEndereco());
-
-        final var response = mongoOperations.findAndModify(query, update, Cliente.class);
-        if (Optional.ofNullable(response).isEmpty()) {
-            throw new ClienteNaoExisteException();
-        }
-    }
+    //TODO("Atualizar endereco")
+//    public void atualizarEndereco(Cliente cliente) {
+//        final var query = Query.query(Criteria.where(ID).is(cliente.getId()));
+//        final var update = new Update().set(ENDERECO, cliente.getEndereco());
+//
+//        final var response = mongoOperations.findAndModify(query, update, Cliente.class);
+//        if (Optional.ofNullable(response).isEmpty()) {
+//            throw new ClienteNaoExisteException();
+//        }
+//    }
 
     public Cliente buscarPorId(Cliente cliente) {
         return mongoOperations.findById(cliente.getId(), Cliente.class);

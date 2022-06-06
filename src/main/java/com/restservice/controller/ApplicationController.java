@@ -1,6 +1,7 @@
 package com.restservice.controller;
 
 import com.restservice.model.Cliente;
+import com.restservice.model.Endereco;
 import com.restservice.model.SucessoResponse;
 import com.restservice.service.Service;
 import lombok.AllArgsConstructor;
@@ -25,10 +26,7 @@ public class ApplicationController {
 
     @DeleteMapping("/removerclientes/{idRemoveClientePath}")
     public ResponseEntity<SucessoResponse>  removerCliente(@PathVariable (value = "idRemoveClientePath" , required = true) String idRemoveClientePath) {
-        Cliente cliente = new Cliente();
-        cliente.setId(idRemoveClientePath);
-
-        clienteService.removerCliente(cliente);
+        clienteService.removerCliente(Cliente.builder().id(idRemoveClientePath).build());
         return new ResponseEntity<>(SucessoResponse.builder().message("Cliente removido com sucesso").build(), HttpStatus.OK);
     }
 
@@ -38,15 +36,15 @@ public class ApplicationController {
         return new ResponseEntity<>(SucessoResponse.builder().message("Cliente Atualizado com sucesso").build(), HttpStatus.OK);
     }
 
-    @PutMapping("/atualizarenderecos")
-    public ResponseEntity<SucessoResponse>  atualizarEndereco(@NonNull @RequestBody Cliente cliente) {
-        clienteService.atualizarEndereco(cliente);
-        return new ResponseEntity<>(SucessoResponse.builder().message("Endereco Atualizado com sucesso").build(), HttpStatus.OK);
-    }
+//    @PutMapping("/atualizarenderecos")
+//    public ResponseEntity<SucessoResponse>  atualizarEndereco(@NonNull @RequestBody Cliente cliente) {
+//        clienteService.atualizarEndereco(cliente);
+//        return new ResponseEntity<>(SucessoResponse.builder().message("Endereco Atualizado com sucesso").build(), HttpStatus.OK);
+//    }
 
     @GetMapping("/buscarclientescpf")
-    public ResponseEntity<Cliente>  buscarClienteCPF(@NonNull @RequestBody Cliente cliente) {
-        final var retorno = clienteService.buscarClienteCpf(cliente);
+    public ResponseEntity<Cliente>  buscarClienteCPF(@RequestHeader(value = "cpf-cliente") String cpf) {
+        final var retorno = clienteService.buscarClienteCpf(Cliente.builder().cpf(cpf).build());
         return new ResponseEntity<>(retorno, HttpStatus.OK);
     }
 

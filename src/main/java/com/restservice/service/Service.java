@@ -11,6 +11,6 @@ public interface Service<T>  {
      T buscarClienteCpf(T t);
      List<T> buscarClientes();
      T buscarPorId(T t);
-     void atualizarEndereco(T t);
+     //void atualizarEndereco(T t);
 }
 

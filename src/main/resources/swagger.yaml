@@ -121,7 +121,7 @@ components:
       cpf-cliente:
         name: cpf-cliente
         in: header
-        description: ID do cliente
+        description: CPF do cliente
         required: true
         schema:
           type: string
