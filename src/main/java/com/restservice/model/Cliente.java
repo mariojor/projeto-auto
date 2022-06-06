@@ -26,5 +26,6 @@ public class Cliente {
     private String cpf;
     private Endereco endereco;
     private String telefone;
+    private String email;
 
 }

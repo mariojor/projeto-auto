@@ -1,0 +1,52 @@
+openapi: 3.0.3
+info:
+  title: Crud API automoveis
+  version: 1.0.0
+
+paths:
+  /inserir:
+    post:
+      tags:
+        - AutoMoveis
+      description: Insere um novo auto
+      operationId: inserir
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cliente'
+      responses:
+        '200':
+          description: Sucesso
+
+components:
+  schemas:
+    Cliente:
+      type: object
+      properties:
+        nome:
+          type: string
+        cpf:
+          type: string
+        email:
+          type: string
+        telefone:
+          type: string
+        Endereco:
+          type: object
+          properties:
+            logradouro:
+              type: string
+            numero:
+              type: string
+            bairro:
+              type: string
+            cidade:
+              type: string
+            estado:
+              type: string
+            cep:
+              type: string
+            complemento:
+              type: string
+

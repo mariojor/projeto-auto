@@ -44,12 +44,12 @@ public class ApplicationController {
     @GetMapping("/buscarclientecpf")
     public ResponseEntity<Cliente>  buscarClienteCpf(@NonNull @RequestBody Cliente cliente) {
         final var retorno = clienteService.buscarPorCpf(cliente);
-        return new ResponseEntity<Cliente>(retorno, HttpStatus.OK);
+        return new ResponseEntity<>(retorno, HttpStatus.OK);
     }
 
     @GetMapping("/buscar")
     public ResponseEntity<List<Cliente>>  buscar() {
         final var retorno = clienteService.buscarTodos();
-        return new ResponseEntity<List<Cliente>>(retorno, HttpStatus.OK);
+        return new ResponseEntity<>(retorno, HttpStatus.OK);
     }
 }
