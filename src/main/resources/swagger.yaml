@@ -4,7 +4,7 @@ info:
   version: 1.0.0
 
 paths:
-  /inserir:
+  /inserirclientes:
     post:
       tags:
         - AutoMoveis
@@ -15,6 +15,65 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Cliente'
+      responses:
+        '200':
+          description: Sucesso
+  /removerclientes/{idRemoveClientePath}:
+    delete:
+      tags:
+        - AutoMoveis
+      description: Remove um cliente
+      operationId: removerClientes
+      parameters:
+        - $ref: '#/components/parameters/idRemoveClientePath'
+      responses:
+        '200':
+          description: Sucesso
+  /atualizarclientes:
+    put:
+      tags:
+        - AutoMoveis
+      description: Atualiza um cliente
+      operationId: atualizarClientes
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cliente'
+      responses:
+        '200':
+          description: Sucesso
+  /atualizarenderecos:
+    put:
+      tags:
+        - AutoMoveis
+      description: Atualiza um endereco
+      operationId: atualizarEnderecos
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cliente'
+      responses:
+        '200':
+          description: Sucesso
+  /buscarclientescpf:
+    get:
+      tags:
+        - AutoMoveis
+      description: Busca um cliente por cpf
+      operationId: buscarClientesCPF
+      parameters:
+        - $ref: '#/components/parameters/cpf-cliente'
+      responses:
+        '200':
+          description: Sucesso
+  /buscarclientes:
+    get:
+      tags:
+        - AutoMoveis
+      description: Busca todos os clientes
+      operationId: buscarClientes
       responses:
         '200':
           description: Sucesso
@@ -49,4 +108,21 @@ components:
               type: string
             complemento:
               type: string
+
+  parameters:
+      idRemoveClientePath:
+        name: idRemoveClientePath
+        in: path
+        description: ID do cliente
+        required: true
+        schema:
+          type: string
+
+      cpf-cliente:
+        name: cpf-cliente
+        in: header
+        description: ID do cliente
+        required: true
+        schema:
+          type: string
 
