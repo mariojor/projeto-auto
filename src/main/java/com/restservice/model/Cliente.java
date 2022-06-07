@@ -1,10 +1,13 @@
 package com.restservice.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.lang.NonNull;
+
+import java.util.List;
 
 @Document(collection ="clientes")
 @Data
@@ -20,5 +23,6 @@ public class Cliente {
     private Endereco endereco;
     private String telefone;
     private String email;
+    private List<Carro> carros;
 
 }

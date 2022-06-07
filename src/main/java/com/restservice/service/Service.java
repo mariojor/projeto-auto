@@ -1,16 +1,19 @@
 package com.restservice.service;
 
-import com.restservice.exception.ClienteNaoExisteException;
+import com.restservice.exception.NaoExisteException;
 
 import java.util.List;
 
 public interface Service<T>  {
-     void inserirCliente(T t);
-     void atualizarCliente(T t) throws ClienteNaoExisteException;
-     void removerCliente(T t);
-     T buscarClienteCpf(T t);
-     List<T> buscarClientes();
+
+     static final String SALVO = "Salvo com sucesso";
+     static final String ATUALIZADO = "Atualizado com sucesso";
+     static final String REMOVIDO = "Removido com sucesso";
+
+     void inserir(T t);
+     void atualizar(T t) throws NaoExisteException;
+     void remover(T t);
+     List<T> buscar();
      T buscarPorId(T t);
-     //void atualizarEndereco(T t);
 }
 

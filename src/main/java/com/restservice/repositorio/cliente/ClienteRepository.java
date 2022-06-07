@@ -1,9 +1,10 @@
 package com.restservice.repositorio.cliente;
 
-import com.restservice.exception.ClienteCadastradoException;
-import com.restservice.exception.ClienteNaoExisteException;
+import com.restservice.exception.CadastradoException;
+import com.restservice.exception.NaoExisteException;
 import com.restservice.model.Cliente;
-import com.restservice.service.Service;
+import com.restservice.model.Endereco;
+import com.restservice.service.ClienteService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -17,7 +18,7 @@ import java.util.Optional;
 
 @Repository
 @AllArgsConstructor
-public class ClientesRepository implements Service<Cliente> {
+public class ClienteRepository implements ClienteService {
 
     private static final String ID = "_id";
     private static final String CPF = "cpf";
@@ -28,23 +29,23 @@ public class ClientesRepository implements Service<Cliente> {
     private static final String COLLECTION = "clientes";
     private final MongoOperations mongoOperations;
 
-    public void inserirCliente(Cliente cliente) {
-        if (Optional.ofNullable(buscarClienteCpf(cliente)).isEmpty()) {
+    public void inserir(Cliente cliente) {
+        if (Optional.ofNullable(buscarPorCpf(cliente)).isEmpty()) {
             mongoOperations.insert(cliente);
         } else {
-            throw new ClienteCadastradoException();
+            throw new CadastradoException();
         }
     }
 
-    public void removerCliente(Cliente cliente) {
+    public void remover(Cliente cliente) {
         final var query = Query.query(Criteria.where(ID).is(cliente.getId()));
         final var retorno = mongoOperations.findAndRemove(query, Cliente.class);
         if (Optional.ofNullable(retorno).isEmpty()) {
-            throw new ClienteNaoExisteException();
+            throw new NaoExisteException();
         }
     }
 
-    public void atualizarCliente(Cliente cliente) {
+    public void atualizar(Cliente cliente) {
         final var query = Query.query(Criteria.where(ID).is(cliente.getId()));
         final var update = Update
                 .update(NOME, cliente.getNome())
@@ -54,30 +55,31 @@ public class ClientesRepository implements Service<Cliente> {
 
         final var response = mongoOperations.findAndModify(query, update, Cliente.class);
         if (Optional.ofNullable(response).isEmpty()) {
-            throw new ClienteNaoExisteException();
+            throw new NaoExisteException();
         }
     }
-    //TODO("Atualizar endereco")
-//    public void atualizarEndereco(Cliente cliente) {
-//        final var query = Query.query(Criteria.where(ID).is(cliente.getId()));
-//        final var update = new Update().set(ENDERECO, cliente.getEndereco());
-//
-//        final var response = mongoOperations.findAndModify(query, update, Cliente.class);
-//        if (Optional.ofNullable(response).isEmpty()) {
-//            throw new ClienteNaoExisteException();
-//        }
-//    }
 
     public Cliente buscarPorId(Cliente cliente) {
         return mongoOperations.findById(cliente.getId(), Cliente.class);
     }
 
-    public Cliente buscarClienteCpf(Cliente cliente) {
+    public Cliente buscarPorCpf(Cliente cliente) {
         final var query = Query.query(Criteria.where(CPF).is(cliente.getCpf()));
         return mongoOperations.findOne(query, Cliente.class, COLLECTION);
     }
 
-    public List<Cliente> buscarClientes() {
+    public List<Cliente> buscar() {
         return mongoOperations.findAll(Cliente.class, COLLECTION);
+    }
+
+    public Cliente atualizarEndereco(String id, Endereco endereco) {
+        final var query = Query.query(Criteria.where(ID).is(id));
+        final var update = new Update().set(ENDERECO, endereco);
+
+        final var response = mongoOperations.findAndModify(query, update, Cliente.class);
+        if (Optional.ofNullable(response).isEmpty()) {
+            throw new NaoExisteException();
+        }
+        return response;
     }
 }

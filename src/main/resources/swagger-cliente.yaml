@@ -18,14 +18,14 @@ paths:
       responses:
         '200':
           description: Sucesso
-  /removerclientes/{idRemoveClientePath}:
+  /removerclientes/{idPath}:
     delete:
       tags:
         - AutoMoveis
       description: Remove um cliente
       operationId: removerClientes
       parameters:
-        - $ref: '#/components/parameters/idRemoveClientePath'
+        - $ref: '#/components/parameters/idPath'
       responses:
         '200':
           description: Sucesso
@@ -43,17 +43,19 @@ paths:
       responses:
         '200':
           description: Sucesso
-  /atualizarenderecos:
+  /atualizarenderecos/{idPath}:
     put:
       tags:
         - AutoMoveis
       description: Atualiza um endereco
       operationId: atualizarEnderecos
+      parameters:
+        - $ref: '#/components/parameters/idPath'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Cliente'
+              $ref: '#/components/schemas/Endereco'
       responses:
         '200':
           description: Sucesso
@@ -91,27 +93,71 @@ components:
           type: string
         telefone:
           type: string
-        Endereco:
-          type: object
-          properties:
-            logradouro:
-              type: string
-            numero:
-              type: string
-            bairro:
-              type: string
-            cidade:
-              type: string
-            estado:
-              type: string
-            cep:
-              type: string
-            complemento:
-              type: string
+        endereco:
+            $ref: '#/components/schemas/Endereco'
+        carros:
+            type: array
+            items:
+              $ref: '#/components/schemas/Carro'
+    Endereco:
+      type: object
+      properties:
+        logradouro:
+          type: string
+        numero:
+          type: string
+        bairro:
+          type: string
+        cidade:
+          type: string
+        estado:
+          type: string
+        cep:
+          type: string
+        complemento:
+          type: string
+    Carro:
+      type: object
+      properties:
+        id:
+          type: string
+        modelo:
+          type: string
+        marca:
+          type: string
+        ano:
+          type: string
+        cor:
+          type: string
+        placa:
+          type: string
+        chassi:
+          type: string
+        renavam:
+          type: string
+        combustivel:
+          type: string
+        kilometragem:
+          type: string
+        valor:
+          type: string
+        observacao:
+          type: string
+        status:
+          type: string
+        dataCadastro:
+          type: string
+          format: date
+        dataCompra:
+          type: string
+          format: date
+        dataVenda:
+          type: string
+          format: date
 
   parameters:
-      idRemoveClientePath:
-        name: idRemoveClientePath
+      idPath:
+        name: idPath
         in: path
         description: ID do cliente
         required: true

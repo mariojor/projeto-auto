@@ -1,0 +1,124 @@
+openapi: 3.0.3
+info:
+  title: Crud API automoveis
+  version: 1.0.0
+
+paths:
+  /inserircarros:
+    post:
+      tags:
+        - AutoMoveis
+      description: Insere um novo auto
+      operationId: inserir
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Carro'
+      responses:
+        '200':
+          description: Sucesso
+  /removercarros/{idPath}:
+    delete:
+      tags:
+        - AutoMoveis
+      description: Remove um carro
+      operationId: remover
+      parameters:
+        - $ref: '#/components/parameters/idPath'
+      responses:
+        '200':
+          description: Sucesso
+  /atualizarCarros:
+    put:
+      tags:
+        - AutoMoveis
+      description: Atualiza informacoes de um carro
+      operationId: atualizarCarro
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Carro'
+      responses:
+        '200':
+          description: Sucesso
+  /buscarPorRenavam:
+    get:
+      tags:
+        - AutoMoveis
+      description: Busca um carro por renavam
+      operationId: buscarCarroRenavam
+      parameters:
+        - $ref: '#/components/parameters/renavam-carro'
+      responses:
+        '200':
+          description: Sucesso
+  /buscar:
+    get:
+      tags:
+        - AutoMoveis
+      description: Busca todos os carros
+      operationId: buscarCarros
+      responses:
+        '200':
+          description: Sucesso
+
+components:
+  schemas:
+    Carro:
+      type: object
+      properties:
+        id:
+          type: string
+        modelo:
+          type: string
+        marca:
+          type: string
+        ano:
+          type: string
+        cor:
+          type: string
+        placa:
+          type: string
+        chassi:
+          type: string
+        renavam:
+          type: string
+        combustivel:
+          type: string
+        kilometragem:
+          type: string
+        valor:
+          type: string
+        observacao:
+          type: string
+        status:
+          type: string
+        dataCadastro:
+          type: string
+          format: date
+        dataCompra:
+          type: string
+          format: date
+        dataVenda:
+          type: string
+          format: date
+
+  parameters:
+      idPath:
+        name: idPath
+        in: path
+        description: ID do cliente
+        required: true
+        schema:
+          type: string
+
+      renavam-carro:
+        name: renavam-carro
+        in: header
+        description: CPF do cliente
+        required: true
+        schema:
+          type: string
+

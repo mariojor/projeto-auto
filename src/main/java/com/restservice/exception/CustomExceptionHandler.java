@@ -11,21 +11,23 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(ClienteNaoExisteException.class)
-    public ResponseEntity<ResponseException> handler(ClienteNaoExisteException ex) {
+    @ExceptionHandler(NaoExisteException.class)
+    public ResponseEntity<ResponseException> handler(NaoExisteException ex) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         return new ResponseEntity<>(ResponseException.builder()
-                .message("Cliente não encontrado").build(), headers, HttpStatus.NOT_FOUND);
+                .message("Não encontrado").build(), headers, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(ClienteCadastradoException.class)
-    public ResponseEntity<ResponseException> handler(ClienteCadastradoException ex) {
+    @ExceptionHandler(CadastradoException.class)
+    public ResponseEntity<ResponseException> handler(CadastradoException ex) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         return new ResponseEntity<>(ResponseException.builder()
-                .message("Cliente já cadastrado").build(), headers, HttpStatus.OK);
+                .message("Já cadastrado").build(), headers, HttpStatus.OK);
     }
+
+
 }
