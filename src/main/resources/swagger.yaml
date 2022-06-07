@@ -1,0 +1,128 @@
+openapi: 3.0.3
+info:
+  title: Crud API automoveis
+  version: 1.0.0
+
+paths:
+  /inserirclientes:
+    post:
+      tags:
+        - AutoMoveis
+      description: Insere um novo auto
+      operationId: inserir
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cliente'
+      responses:
+        '200':
+          description: Sucesso
+  /removerclientes/{idRemoveClientePath}:
+    delete:
+      tags:
+        - AutoMoveis
+      description: Remove um cliente
+      operationId: removerClientes
+      parameters:
+        - $ref: '#/components/parameters/idRemoveClientePath'
+      responses:
+        '200':
+          description: Sucesso
+  /atualizarclientes:
+    put:
+      tags:
+        - AutoMoveis
+      description: Atualiza um cliente
+      operationId: atualizarClientes
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cliente'
+      responses:
+        '200':
+          description: Sucesso
+  /atualizarenderecos:
+    put:
+      tags:
+        - AutoMoveis
+      description: Atualiza um endereco
+      operationId: atualizarEnderecos
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cliente'
+      responses:
+        '200':
+          description: Sucesso
+  /buscarclientescpf:
+    get:
+      tags:
+        - AutoMoveis
+      description: Busca um cliente por cpf
+      operationId: buscarClientesCPF
+      parameters:
+        - $ref: '#/components/parameters/cpf-cliente'
+      responses:
+        '200':
+          description: Sucesso
+  /buscarclientes:
+    get:
+      tags:
+        - AutoMoveis
+      description: Busca todos os clientes
+      operationId: buscarClientes
+      responses:
+        '200':
+          description: Sucesso
+
+components:
+  schemas:
+    Cliente:
+      type: object
+      properties:
+        nome:
+          type: string
+        cpf:
+          type: string
+        email:
+          type: string
+        telefone:
+          type: string
+        Endereco:
+          type: object
+          properties:
+            logradouro:
+              type: string
+            numero:
+              type: string
+            bairro:
+              type: string
+            cidade:
+              type: string
+            estado:
+              type: string
+            cep:
+              type: string
+            complemento:
+              type: string
+
+  parameters:
+      idRemoveClientePath:
+        name: idRemoveClientePath
+        in: path
+        description: ID do cliente
+        required: true
+        schema:
+          type: string
+
+      cpf-cliente:
+        name: cpf-cliente
+        in: header
+        description: CPF do cliente
+        required: true
+        schema:
+          type: string
+

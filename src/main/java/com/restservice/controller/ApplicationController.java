@@ -1,6 +1,7 @@
 package com.restservice.controller;
 
 import com.restservice.model.Cliente;
+import com.restservice.model.Endereco;
 import com.restservice.model.SucessoResponse;
 import com.restservice.service.Service;
 import lombok.AllArgsConstructor;
@@ -17,39 +18,39 @@ public class ApplicationController {
 
     private final Service<Cliente> clienteService;
 
-    @PostMapping("/inserir")
+    @PostMapping("/inserirclientes")
     public ResponseEntity<SucessoResponse> criarCliente(@NonNull @RequestBody Cliente cliente) {
-            clienteService.inserir(cliente);
+            clienteService.inserirCliente(cliente);
             return new ResponseEntity<>(SucessoResponse.builder().message("Cliente salvo com sucesso").build(), HttpStatus.OK);
     }
 
-    @PutMapping("/atualizarcliente")
+    @DeleteMapping("/removerclientes/{idRemoveClientePath}")
+    public ResponseEntity<SucessoResponse>  removerCliente(@PathVariable (value = "idRemoveClientePath" , required = true) String idRemoveClientePath) {
+        clienteService.removerCliente(Cliente.builder().id(idRemoveClientePath).build());
+        return new ResponseEntity<>(SucessoResponse.builder().message("Cliente removido com sucesso").build(), HttpStatus.OK);
+    }
+
+    @PutMapping("/atualizarclientes")
     public ResponseEntity<SucessoResponse>  atualizarCliente(@NonNull @RequestBody Cliente cliente) {
         clienteService.atualizarCliente(cliente);
         return new ResponseEntity<>(SucessoResponse.builder().message("Cliente Atualizado com sucesso").build(), HttpStatus.OK);
     }
 
-    @PutMapping("/atualizarendereco")
-    public ResponseEntity<SucessoResponse>  atualizarEndereco(@NonNull @RequestBody Cliente cliente) {
-        clienteService.atualizarEndereco(cliente);
-        return new ResponseEntity<>(SucessoResponse.builder().message("Endereco Atualizado com sucesso").build(), HttpStatus.OK);
+//    @PutMapping("/atualizarenderecos")
+//    public ResponseEntity<SucessoResponse>  atualizarEndereco(@NonNull @RequestBody Cliente cliente) {
+//        clienteService.atualizarEndereco(cliente);
+//        return new ResponseEntity<>(SucessoResponse.builder().message("Endereco Atualizado com sucesso").build(), HttpStatus.OK);
+//    }
+
+    @GetMapping("/buscarclientescpf")
+    public ResponseEntity<Cliente>  buscarClienteCPF(@RequestHeader(value = "cpf-cliente") String cpf) {
+        final var retorno = clienteService.buscarClienteCpf(Cliente.builder().cpf(cpf).build());
+        return new ResponseEntity<>(retorno, HttpStatus.OK);
     }
 
-    @DeleteMapping("/removerclientes")
-    public ResponseEntity<SucessoResponse>  removerCliente(@NonNull @RequestBody Cliente cliente) {
-        clienteService.remover(cliente);
-        return new ResponseEntity<>(SucessoResponse.builder().message("Cliente removido com sucesso").build(), HttpStatus.OK);
-    }
-
-    @GetMapping("/buscarclientecpf")
-    public ResponseEntity<Cliente>  buscarClienteCpf(@NonNull @RequestBody Cliente cliente) {
-        final var retorno = clienteService.buscarPorCpf(cliente);
-        return new ResponseEntity<Cliente>(retorno, HttpStatus.OK);
-    }
-
-    @GetMapping("/buscar")
-    public ResponseEntity<List<Cliente>>  buscar() {
-        final var retorno = clienteService.buscarTodos();
-        return new ResponseEntity<List<Cliente>>(retorno, HttpStatus.OK);
+    @GetMapping("/buscarclientes")
+    public ResponseEntity<List<Cliente>>  buscarClientes() {
+        final var retorno = clienteService.buscarClientes();
+        return new ResponseEntity<>(retorno, HttpStatus.OK);
     }
 }
